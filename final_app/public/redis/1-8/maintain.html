@@ -1,0 +1,381 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400italic,400,600' rel='stylesheet' type='text/css'>
+  <!-- Use title if it's in the page YAML frontmatter -->
+  <title>
+      Best Practices for Operating Redis for PCF |
+    Pivotal Docs
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/stylesheets/all.css" rel="stylesheet" media="screen, print" />
+  <link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+  <link href='/images/favicon.ico' rel='shortcut icon'>
+
+  <script src="/javascripts/all.js"></script>
+  
+<script type="text/javascript">
+  if (window.location.host === 'docs.pivotal.io') {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39702075-1']);
+    _gaq.push(['_setDomainName', 'pivotal.io']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  }
+</script>
+
+<script type="text/javascript">
+  var blackList = ['acceptance'];
+
+  blackList.forEach(function(blackListedEnv) {
+    if (document.URL.indexOf(blackListedEnv) > -1 && blackListedEnv != "") {
+      $('head').append('<meta name="hashtag" content="PivotalMoment">');
+    }
+  });
+</script>
+
+<!-- CrazyEgg Tracking Script -->
+  <script type="text/javascript">
+  setTimeout(function(){var a=document.createElement("script");
+  var b=document.getElementsByTagName("script")[0];
+  a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0055/2990.js?"+Math.floor(new Date().getTime()/3600000);
+  a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+  </script>
+
+<!-- Munchkin Marketo Script -->
+<script type="text/javascript">
+  (function() {
+    var didInit = false;
+
+    function initMunchkin() {
+      if (didInit === false) {
+        didInit = true;
+        Munchkin.init('625-IUJ-009');
+      }
+    }
+
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+    s.onreadystatechange = function() {
+      if (this.readyState == 'complete' || this.readyState == 'loaded') {
+        initMunchkin();
+      }
+    };
+    s.onload = initMunchkin;
+    document.getElementsByTagName('head')[0].appendChild(s);
+  })();
+</script>
+
+</head>
+
+<body class="redis redis_1-8 redis_1-8_maintain has-subnav">
+
+<div class="viewport">
+  <div class='wrap'>
+    <script type="text/javascript">
+      document.domain = "pivotal.io";
+    </script>
+
+      <header class="global-header header header-layout js-bar-links">
+    <a class="pivotal-logo" href="/">
+    </a>
+    <a href="/" class="global-header-title">
+      <span class="title-deemph">Pivotal</span> Documentation
+    </a>
+    <div class="btn-menu" data-behavior="MenuMobile"></div>
+    <div class="header-links">
+      <div class="header-item">
+        <a href="https://network.pivotal.io/">Downloads</a>
+      </div>
+      <div class="header-item">
+        <a href="http://support.pivotal.io" target="_blank">Support</a>
+      </div>
+
+      <div class="header-item embedded-searchbar">
+          <form method="get" action="/search">
+            <input name="q" placeholder="Search Redis 1.8" class="search-box" />
+            <input type="hidden" name="product_name" value="Pivotal Redis" />
+              <input type="hidden" name="product_version" value="1.8"/>
+          </form>
+      </div>
+      
+    </div>
+  </header>
+
+
+
+    <div class="container">
+
+      <!--googleoff: index-->
+      <div id="sub-nav" class="js-sidenav nav-container" role="navigation">
+  <a class="sidenav-title" data-behavior="SubMenuMobile">
+    Doc Index
+  </a>
+  <div class="nav-content">
+    <ul>
+
+
+      <li class="has_submenu expanded">
+        <a href="/redis/1-8/index.html">About Redis for PCF</a>
+        <ul>
+          <li>
+            <a href="/redis/1-8/minor-overview.html">Overview of Redis for PCF v.1.7</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/release.html">Release Notes</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#config">How Redis for PCF Configures Redis</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#plans">Service Plans</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#architecture">Architecture</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#lifecycle">Lifecycle</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/recommended.html">Recommended Usage and Limitations</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/security.html">Security</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="has_submenu expanded">
+        <a href="/redis/1-8/maintain.html">Operator Guide</a>
+        <ul>
+          <li>
+            <a href="/redis/1-8/installing.html">Installing Redis</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#service-plans">Configuring Service Plans</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#syslog">Configuring Syslog Output</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#backup">Configuring Automated Backups</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#azs">Networks, Security, and Assigning AZs</a>
+          </li>          
+          <li>
+            <a href="/redis/1-8/installing.html#validation">Validating Install with Smoke Tests</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/manual-br.html#create">Creating Manual Backups</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/manual-br.html#restore">Restoring from Backups</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/monitoring.html">Monitoring and Metrics</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#upgrades">Upgrading Redis for PCF</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#uninstall">Uninstalling Redis for PCF</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/troubleshooting.html">Troubleshooting</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="has_submenu expanded">
+        <a href="/redis/1-8/appdevs.html">Application Developer Guide</a>
+        <ul>
+          <li>
+            <a href="/redis/1-8/appdevs.html#getting-started">Getting Started</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#service-plans">Service Plans</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/using.html#create">Creating a Redis Service Instance</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/using.html#bind">Binding an App to a Service Instance</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/using.html#delete">Deleting a Service Instance</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/recommended.html">Recommended Usage and Limitations</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/redisconf.html">Sample Redis Configuration</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div><!--end of sub-nav-->
+
+
+
+
+
+      <!--googleon: index-->
+
+      <main class="content content-layout" id="js-content" role="main">
+        <a id="top"></a>
+          <div class="local-header title-container">
+    <div class="local-header version-info">
+      LATEST VERSION: 1.8 - <a href="">CHANGELOG</a>
+    </div>
+    <div class="local-header local-title clearfix">
+      <img src="/images/cloud_rings.png">
+      <span class="local-header-title">Pivotal Redis
+      </span>
+      <span class="local-header local-version header-dropdown">
+        <a class="local-header header-dropdown-link">v1.8</a>
+        <span class="local-header header-dropdown-content">
+          <ul>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-7/maintain.html">v1.7</a>
+                </li>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-6/maintain.html">v1.6</a>
+                </li>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-5/maintain.html">v1.5</a>
+                </li>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-4/maintain.html">v1.4</a>
+                </li>
+          </ul>
+        </span>
+      </span>
+
+      <!-- search was here -->
+    </div>
+    <div class="local-header local-header-links">
+    </div>
+  </div>
+
+          <h1 class="title-container" >
+    Best Practices for Operating Redis for PCF
+  </h1>
+
+          <div id="js-quick-links" >
+            <div class="quick-links"><ul>
+<li><a href="#Best%20Practice">Best Practices</a></li>
+<li><a href="#backup">About Creating Backups of Redis Instances</a></li>
+<li><a href="#metrics">About Monitoring Redis for PCF</a></li>
+<li><a href="#smoke">Smoke Tests</a></li>
+</ul></div>
+          </div>
+        <div class="to-top" id="js-to-top">
+          <a href="#top" title="back to top"></a>
+        </div>
+        <p>This topic is for PCF operators. It introduces some best practices, but does not provide details about operation.</p>
+
+<h2><a id="Best Practice"></a>Best Practices</h2>
+
+<p>Pivotal recommends that operators do the following:</p>
+
+<ul>
+<li>Resource Allocation — Work with app developers to anticipate memory requirements and to configure VM sizes.
+Redis for PCF is configured by default with small VMs. For information about configuring VM sizes,
+see <a href="/redis/1-6/installing.html#configuration">Configure Redis Service Plans</a>.</li>
+<li>Logs — Configure a syslog output. Storing logs in an external service helps operators debug issues both current and historical.</li>
+<li>Monitoring — Set up a monitoring dashboard for metrics to track the health of the installation.</li>
+<li>Backing Up Data — When using Redis for persistence, configure automatic backups so that data can be restored in an emergency.
+Validate the backed-up data with a test restore.</li>
+</ul>
+
+<h2><a id="backup"></a>About Creating Backups of Redis Instances</h2>
+
+<p>You can back up Redis for PCF instances in two way:</p>
+
+<ul>
+<li>Configure automatic backups to be run for each instance, across both service plans. For information about setting up automatic backups, see <a href="/redis/1-8/installing.html#backup">Configure Backups</a>.</li>
+<li>Create manual backups of individual instances. For information about how to make manual backups of instances, see <a href="/redis/1-8/manual-br.html">Manual Backup and Restore of Redis for PCF</a>.</li>
+</ul>
+
+<p>Note that backups are not available for on demand instances.</p>
+
+<h2><a id="metrics"></a> About Monitoring Redis for PCF</h2>
+
+<h3>Redis Metrics</h3>
+
+<p>Redis for PCF emits Redis metrics via the firehose. Details <a href="/redis/1-8/monitoring.html">here</a></p>
+
+<h3>Logging</h3>
+
+<p>Syslog can be forwarded to an external log service.</p>
+
+<p>Syslog for On-Demand instances conforms to RFC5424 standards. This format is as follows:</p>
+
+<pre class=terminal>
+<$PRI>$VERSION $TIMESTAMP $HOST $APP_NAME $PROC_ID $MSG_ID
+[instance@47450 deployment="$DEPLOYMENT" group="$INSTANCE_GROUP"
+ az="$AVAILABILITY_ZONE" id="$ID"] $MESSAGE`
+</pre>
+
+<p>An example:
+<pre class=terminal>
+  <13>1 2017-03-28T15:20:31.490350+00:00 10.0.16.35 redis-server 4951 - [instance@47450 director=&quot;us-pws&quot; deployment=&quot;service-instance_16c95f89-8d5a-4cb7-839d-79c5d026bd15&quot; group=&quot;redis-instance&quot; az=&quot;eu-west-1a&quot; id=&quot;7f976f34-4105-4475-abbc-5df10e933cfa&quot; ] User requested shutdown
+</pre></p>
+
+<p>The following example shows syslogs for Dedicated-VM and Shared-VM instances:</p>
+
+<pre class=terminal>
+Nov 15 17:05:01 10.0.24.10 audispd: [job=dedicated-node index=4]  node=7bfe8b1b-6c
+fd-4d33-b704-c9214ce6bb3e type=USER_ACCT msg=audit(1479229501.290:86): pid=6655 ui
+d=0 auid=4294967295 ses=4294967295 msg='op=PAM:accounting acct="root" exe="/usr/sbi
+n/cron" hostname=? addr=? terminal=cron res=success'
+</pre>
+
+<p>For information about how to set up syslog output, see <a href="/redis/1-8/installing.html#syslog">Configure Syslog Output</a>.</p>
+
+<h2><a id="smoke"></a>Smoke Tests</h2>
+
+<p>Redis for PCF has smoke tests that are run as a post-install errand by Ops Manager. Information on what they do is <a href="/redis/1-8/smoke-tests.html">here</a>. They can be run by the operator via <code>bosh run errand smoke-tests</code>.</p>
+
+        <div><a id='repo-link' href='http://github.com/pivotal-cf/docs-redis/tree/1.8/maintain.html.md.erb'>View the source for this page in GitHub</a></div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<div id="scrim"></div>
+
+<div class="container">
+  <footer class="site-footer-links">
+    <div class="copyright">
+  <a href='http://pivotal.io/privacy-policy'>Privacy Policy</a> | 
+  <a href='http://pivotal.io/terms-of-use'>Terms of Use</a><br/>
+  <a href='/'>Pivotal Documentation</a>
+  &copy; 2017 <a href='http://pivotal.io'>Pivotal Software</a>, Inc. All Rights Reserved.
+</div>
+<div class="support">
+  Need help? <a href="http://support.pivotal.io" target="_blank">Visit Support</a>
+</div>
+
+  </footer>
+</div><!--end of container-->
+
+</body>
+</html>

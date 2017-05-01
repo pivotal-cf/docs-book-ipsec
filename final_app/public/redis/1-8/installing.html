@@ -1,0 +1,787 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400italic,400,600' rel='stylesheet' type='text/css'>
+  <!-- Use title if it's in the page YAML frontmatter -->
+  <title>
+      Installing and Upgrading Redis for PCF |
+    Pivotal Docs
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/stylesheets/all.css" rel="stylesheet" media="screen, print" />
+  <link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+  <link href='/images/favicon.ico' rel='shortcut icon'>
+
+  <script src="/javascripts/all.js"></script>
+  
+<script type="text/javascript">
+  if (window.location.host === 'docs.pivotal.io') {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39702075-1']);
+    _gaq.push(['_setDomainName', 'pivotal.io']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  }
+</script>
+
+<script type="text/javascript">
+  var blackList = ['acceptance'];
+
+  blackList.forEach(function(blackListedEnv) {
+    if (document.URL.indexOf(blackListedEnv) > -1 && blackListedEnv != "") {
+      $('head').append('<meta name="hashtag" content="PivotalMoment">');
+    }
+  });
+</script>
+
+<!-- CrazyEgg Tracking Script -->
+  <script type="text/javascript">
+  setTimeout(function(){var a=document.createElement("script");
+  var b=document.getElementsByTagName("script")[0];
+  a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0055/2990.js?"+Math.floor(new Date().getTime()/3600000);
+  a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+  </script>
+
+<!-- Munchkin Marketo Script -->
+<script type="text/javascript">
+  (function() {
+    var didInit = false;
+
+    function initMunchkin() {
+      if (didInit === false) {
+        didInit = true;
+        Munchkin.init('625-IUJ-009');
+      }
+    }
+
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+    s.onreadystatechange = function() {
+      if (this.readyState == 'complete' || this.readyState == 'loaded') {
+        initMunchkin();
+      }
+    };
+    s.onload = initMunchkin;
+    document.getElementsByTagName('head')[0].appendChild(s);
+  })();
+</script>
+
+</head>
+
+<body class="redis redis_1-8 redis_1-8_installing has-subnav">
+
+<div class="viewport">
+  <div class='wrap'>
+    <script type="text/javascript">
+      document.domain = "pivotal.io";
+    </script>
+
+      <header class="global-header header header-layout js-bar-links">
+    <a class="pivotal-logo" href="/">
+    </a>
+    <a href="/" class="global-header-title">
+      <span class="title-deemph">Pivotal</span> Documentation
+    </a>
+    <div class="btn-menu" data-behavior="MenuMobile"></div>
+    <div class="header-links">
+      <div class="header-item">
+        <a href="https://network.pivotal.io/">Downloads</a>
+      </div>
+      <div class="header-item">
+        <a href="http://support.pivotal.io" target="_blank">Support</a>
+      </div>
+
+      <div class="header-item embedded-searchbar">
+          <form method="get" action="/search">
+            <input name="q" placeholder="Search Redis 1.8" class="search-box" />
+            <input type="hidden" name="product_name" value="Pivotal Redis" />
+              <input type="hidden" name="product_version" value="1.8"/>
+          </form>
+      </div>
+      
+    </div>
+  </header>
+
+
+
+    <div class="container">
+
+      <!--googleoff: index-->
+      <div id="sub-nav" class="js-sidenav nav-container" role="navigation">
+  <a class="sidenav-title" data-behavior="SubMenuMobile">
+    Doc Index
+  </a>
+  <div class="nav-content">
+    <ul>
+
+
+      <li class="has_submenu expanded">
+        <a href="/redis/1-8/index.html">About Redis for PCF</a>
+        <ul>
+          <li>
+            <a href="/redis/1-8/minor-overview.html">Overview of Redis for PCF v.1.7</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/release.html">Release Notes</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#config">How Redis for PCF Configures Redis</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#plans">Service Plans</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#architecture">Architecture</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#lifecycle">Lifecycle</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/recommended.html">Recommended Usage and Limitations</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/security.html">Security</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="has_submenu expanded">
+        <a href="/redis/1-8/maintain.html">Operator Guide</a>
+        <ul>
+          <li>
+            <a href="/redis/1-8/installing.html">Installing Redis</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#service-plans">Configuring Service Plans</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#syslog">Configuring Syslog Output</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#backup">Configuring Automated Backups</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#azs">Networks, Security, and Assigning AZs</a>
+          </li>          
+          <li>
+            <a href="/redis/1-8/installing.html#validation">Validating Install with Smoke Tests</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/manual-br.html#create">Creating Manual Backups</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/manual-br.html#restore">Restoring from Backups</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/monitoring.html">Monitoring and Metrics</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#upgrades">Upgrading Redis for PCF</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#uninstall">Uninstalling Redis for PCF</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/troubleshooting.html">Troubleshooting</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="has_submenu expanded">
+        <a href="/redis/1-8/appdevs.html">Application Developer Guide</a>
+        <ul>
+          <li>
+            <a href="/redis/1-8/appdevs.html#getting-started">Getting Started</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#service-plans">Service Plans</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/using.html#create">Creating a Redis Service Instance</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/using.html#bind">Binding an App to a Service Instance</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/using.html#delete">Deleting a Service Instance</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/recommended.html">Recommended Usage and Limitations</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/redisconf.html">Sample Redis Configuration</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div><!--end of sub-nav-->
+
+
+
+
+
+      <!--googleon: index-->
+
+      <main class="content content-layout" id="js-content" role="main">
+        <a id="top"></a>
+          <div class="local-header title-container">
+    <div class="local-header version-info">
+      LATEST VERSION: 1.8 - <a href="">CHANGELOG</a>
+    </div>
+    <div class="local-header local-title clearfix">
+      <img src="/images/cloud_rings.png">
+      <span class="local-header-title">Pivotal Redis
+      </span>
+      <span class="local-header local-version header-dropdown">
+        <a class="local-header header-dropdown-link">v1.8</a>
+        <span class="local-header header-dropdown-content">
+          <ul>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-7/installing.html">v1.7</a>
+                </li>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-6/installing.html">v1.6</a>
+                </li>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-5/installing.html">v1.5</a>
+                </li>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-4/installing.html">v1.4</a>
+                </li>
+          </ul>
+        </span>
+      </span>
+
+      <!-- search was here -->
+    </div>
+    <div class="local-header local-header-links">
+    </div>
+  </div>
+
+          <h1 class="title-container" >
+    Installing and Upgrading Redis for PCF
+  </h1>
+
+          <div id="js-quick-links" >
+            <div class="quick-links"><ul>
+<li><a href="#install">Installation Steps</a></li>
+<li>
+<a href="#configuration">Configuring PCF Redis</a><ul>
+<li><a href="#service-plans">Configure Redis Service Plans</a></li>
+<li><a href="#syslog">Configure Syslog Output</a></li>
+<li><a href="#backup">Creating Backups of Redis Instances</a></li>
+<li><a href="#azs">Networks, Security, and Assigning AZs</a></li>
+</ul>
+</li>
+<li><a href="#validation">Validating Installation</a></li>
+<li><a href="#upgrades">Upgrading Redis for PCF</a></li>
+<li><a href="#uninstall">Uninstalling Redis for PCF</a></li>
+</ul></div>
+          </div>
+        <div class="to-top" id="js-to-top">
+          <a href="#top" title="back to top"></a>
+        </div>
+        <h2><a id="install"></a>Installation Steps</h2>
+
+<p>To add Redis for PCF to Ops Manager, follow the procedure for adding Pivotal Ops Manager tiles:</p>
+
+<ol>
+<li>Download the product file from <a href="https://network.pivotal.io/products/p-redis">Pivotal Network</a>.</li>
+<li>Upload the product file to your Ops Manager installation.</li>
+<li>Click <strong>Add</strong> next to the uploaded product description in the Available Products view to add this product to your staging area.</li>
+<li>(Optional) Click the newly added tile to configure your <a href="#configuration">possible service plans</a>, <a href="#syslog">syslog draining</a>, and <a href="#backup">backups</a>.</li>
+<li>Click <strong>Apply Changes</strong> to install the service.</li>
+</ol>
+
+<h2><a id="configuration"></a>Configuring PCF Redis</h2>
+
+<h3><a id="service-plans"></a>Configure Redis Service Plans</h3>
+
+<p>Select the <strong>Redis</strong> tile from the Installation Dashboard to display the configuration page and allocate resources to Redis service plans.</p>
+
+<h4><a id="on-demand-config"></a>On-Demand Plan</h4>
+
+<ol>
+<li> Select the tab with the plan name to configure the plan. Instances of the three opinionated plans are intended to be used as different cache sizes. The operator should configure appropriate memory and disk sizes, according to the use case.</li>
+<li><strong>cache-small</strong> - A Redis instance deployed to a dedicated VM, suggested to be configured with ~1GB of memory and &gt;3.5GB of persistent disk.</li>
+<li><strong>cache-medium</strong> - A Redis instance deployed to a dedicated VM, suggested to be configured with ~2GB of memory and &gt;10GB of persistent disk.</li>
+<li><p><strong>cache-large</strong> - A Redis instance deployed to a dedicated VM, suggested to be configured with ~4GB of memory and &gt;14GB of persistent disk.
+Note that resource configuration options may vary on different IAASs.</p></li>
+<li><p>Configure the following for your plan. The default settings, where applicable, have been pre-configured according to the memory/disk size of each plan</p></li>
+<li><p>Choose to enable or disable the plan for your organization.</p></li>
+<li><p>Set the plan name and description to appear in the service catalog.</p></li>
+<li><p>Select the AZ to deploy the Redis instances from the plan.</p></li>
+<li><p>Select the Server VM type and Server Disk type. We recommend that the <strong>persistent disk should be at least
+3.5x the VM memory</strong>.</p></li>
+<li><p>Change the Redis Client Timeout from the default as needed. Redis Client Timeout refers to the server timeout for an idle client specified in seconds. The default setting is 3600.</p></li>
+<li><p>Change the Redis TCP Keepaplive from the default as needed. Redis TCP Keepalive refers to the interval (in seconds) at which TCP ACKS are sent to clients. The default setting is 60.</p></li>
+<li><p>Change the Max Clients from the default as needed. Max Clients refers to the maximum number of clients that can be connected at any one time. Per plan, the default setting is 1000 for small, 5000 for medium and 10000 for large.</p></li>
+<li><p>Enable or disable Lua Scripting as needed. The default settig is to have Lua Scripting enabled.</p></li>
+<li><p>Set the plan quota. App Developers can cumulatively only create as many instances as the plan quota allows for.
+<img alt="on demand config" src="images/on-demand-config.png" /></p></li>
+<li><p>Click the <strong>Save</strong> button.</p></li>
+</ol>
+
+<h4><a id="shared-vm-config"></a>Shared-VM Plan</h4>
+
+<ol>
+<li><p>Select the <strong>Shared-VM Plan</strong> tab to configure the memory limit for each Redis instance and the maximum number of instances that can be created.
+<img alt="shared vm config" src="images/shared-vm-config.png" /></p></li>
+<li><p>Enter the maximum number of instances and the memory limit for each Redis instance.</p></li>
+<li><p>Click the <strong>Save</strong> button.</p>
+
+<p><br />Shared-VM instances run on the Redis Broker.</p>
+
+<p><br />The memory and instance limits for your Shared-VM Redis instances should depend on the total memory of your Redis broker.
+When configuring the maximum number of Redis service instances that can be created you need to take into account the maximum memory each redis instance could use in correlation with how much total memory the Redis broker has.
+We recommend you only allow up to 45% of your Redis broker&rsquo;s total memory to be used by all Redis instances.
+This is due the amount of memory required to support Redis persistence, and run Redis broker &amp; system tasks.</p>
+
+<p><br />See below for example cases:</p>
+
+<table border="1" class="nice">
+    <tr>
+        <th>Redis Broker Total Memory</th>
+        <th>Redis Instance Memory Limit</th>
+        <th>Redis Service Instance Limit</th>
+    </tr>
+    <tr>
+        <td>16GB</td>
+        <td>512MB</td>
+        <td>14</td>
+    </tr>
+  <tr>
+        <td>16GB</td>
+        <td>256MB</td>
+        <td>28</td>
+    </tr>
+  <tr>
+        <td>64GB</td>
+        <td>512MB</td>
+        <td>56</td>
+    </tr>
+</table>
+
+<p><br />It is possible to configure a larger Redis Service Instance Limit, if you are confident that the majority of the deployed instances will not be using a large amount of their allocated memory, for example in development or test environments.
+<p class="note"><strong>Note</strong>:
+  This is not supported, and could cause your server to run out of memory.
+  If this happens your users may not be able to write any further data to any Redis instance.
+</p></p></li>
+<li><p>Select the <strong>Resource Config</strong> tab to change the allocation of resources for the Redis Broker.
+<br />The Redis Broker server will run all of the Redis instances for your Shared-VM plan. From this screen you may increase or decrease the CPU, RAM, Ephemeral Disk &amp; Persistent Disk made available, as required.</p></li>
+<li><p>Click the <strong>Save</strong> button.</p></li>
+</ol>
+
+<h4><a id="dedicated-vm-config"></a>Dedicated-VM Plan</h4>
+
+<ol>
+<li><p>Select the <strong>Resource Config</strong> tab to change the allocation of resources for the Dedicated Node.
+<img alt="dedicated vm config" src="images/dedicated-vm-config.png" /></p>
+
+<p><br />By default, 5 dedicated nodes will be created, each capable of running one Redis instance. You can increase or decrease the number of dedicated nodes, the size of the Persistent and Ephemeral Disks, and the CPU and RAM, as required.
+The default VM size is small; it is important that the operator set the correct VM size to handle anticipated loads. Redis maxmemory is set to 45% of RAM. It is recommended the persistent disk be set to 3.5x the amount of RAM.</p></li>
+<li><p>Click the <strong>Save</strong> button.</p></li>
+</ol>
+
+<h3><a id="syslog"></a>Configure Syslog Output</h3>
+
+<p>Pivotal recommends that operators configure a syslog output.</p>
+
+<ol>
+<li><p>Add the Syslog address, Syslog port and transport protocol of your log management tool.</p>
+
+<p>The information required for these fields is provided by your log management tool.</p>
+
+<p><img alt="syslog configuration" src="images/syslog-forwarding.png" /></p></li>
+<li><p>Click the <strong>Save</strong> button.</p></li>
+</ol>
+
+<h3><a id="backup"></a>Creating Backups of Redis Instances</h3>
+
+<p>You can configure backups to be run for all instances, across dedicated-VM and shared-VM service plans.
+Backups are not available for On-Demand instances.</p>
+
+<p>The key features are:</p>
+
+<ul>
+<li>Runs on a configurable schedule</li>
+<li>Every instance is backed up, across both service plans</li>
+<li>The Redis broker statefile is backed up</li>
+<li>For each backup artefact, a file is created that contains the MD5 checksum for that artifact. This can be used to validate that the artefact is not corrupted.</li>
+<li>You can configure AWS S3, SCP, Azure or Google Cloud Storage as your destination</li>
+<li>Data from Redis is flushed to disk, before the backup is started by running a <code>BGSAVE</code> on each instance</li>
+<li>Backups are labelled with timestamp, instance GUID and plan name</li>
+</ul>
+
+<h4>Configuration</h4>
+
+<p>To enable backups, you will first need to choose your backup destination type - AWS S3, SCP, Azure or Google Cloud Storage.</p>
+
+<p>Click on the tile in OpsManager, followed by the <code>Backups</code> link on the left hand menu.
+<img alt="OpsManager Backups view" src="images/redis-backup.png" /></p>
+
+<h5>S3 backup fields</h5>
+
+<p><img alt="OpsManager Backups S3 view" src="images/s3backupoptions.png" /></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Mandatory/Optional</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Access Key ID</td>
+<td>The access key for your S3 account</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Secret Access Key</td>
+<td>The Secret Key associated with your Access Key</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Endpoint URL</td>
+<td>The endpoint of your S3 account, e.g. <code>http://s3.amazonaws.com</code></td>
+<td>Optional, defaults to <code>http://s3.amazonaws.com</code> if not specified</td>
+</tr>
+<tr>
+<td>Bucket Name</td>
+<td>Name of the bucket you wish the files to be stored in.</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>Path inside the bucket to save backups to.</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Backup timeout</td>
+<td>The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured destination</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Cron Schedule</td>
+<td>Backups schedule in crontab format.  For example, once daily at 2am is <code>* 2 * * *</code>.  Also accepts a pre-defined schedule: any of <code>@yearly</code>, <code>@monthly</code>, <code>@weekly</code>, <code>@daily</code>, <code>@hourly</code>, or <code>@every &lt;time&gt;</code>, where <code>&lt;time&gt;</code> is any supported time string (e.g. <code>1h30m</code>). For more information, see <a href="https://godoc.org/github.com/robfig/cron#hdr-Predefined_schedules">the cron package documentation</a>.</td>
+<td>Mandatory</td>
+</tr>
+</tbody></table>
+
+<h5>AWS IAM Policy</h5>
+
+<p>An AWS IAM policy describes the permissions related to your bucket.
+The minimum set of policies required in order to upload the backup files are:</p>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"s3:ListBucket"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"s3:ListBucketMultipartUploads"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"s3:ListMultipartUploadParts"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"s3:PutObject"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"arn:aws:s3:::&lt;bucket-name&gt;"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"arn:aws:s3:::&lt;bucket-name&gt;/*"</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Notes:</p>
+
+<ul>
+<li>Make sure to replace <code>&lt;bucket-name&gt;</code> with your correct values.</li>
+<li><code>s3:CreateBucket</code> is only required if the S3 bucket does not exist.</li>
+<li>The additional <code>s3:CreateBucket</code> action is also required if the S3 bucket does not exist.</li>
+</ul>
+
+<h5>SCP backup fields</h5>
+
+<p><img alt="OpsManager Backups SCP view" src="images/scpbackupoptions.png" /></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Mandatory/Optional</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Username</td>
+<td>The username to use for transferring backups to the scp server</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Private Key</td>
+<td>The private ssh key of the user configured in <code>Username</code></td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Hostname</td>
+<td>The hostname or IP address of the SCP server</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Destination Directory</td>
+<td>The path in the scp server, where the backups will be transferred</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>SCP Port</td>
+<td>The scp port of the scp server</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Cron Schedule</td>
+<td>Backups schedule in crontab format. Refer to table for S3 backups for details</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Backup timeout</td>
+<td>The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to the scp server</td>
+<td>Mandatory</td>
+</tr>
+</tbody></table>
+
+<h5>GCS backup fields</h5>
+
+<p><img alt="OpsManager Backups GCS view" src="images/gcsbackupoptions.png" /></p>
+
+<p>PCF Redis uses service account credentials to upload backups to Google Cloud Storage. The service account should have <code>Storage Admin</code> permissions. Please refer to the <a href="https://cloud.google.com/storage/docs/authentication#service_accounts">documentation</a> for details on how to set up a GCP service account.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Mandatory/Optional</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Project ID</td>
+<td>GCP Project ID</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Bucket name</td>
+<td>Name of the bucket you wish the files to be stored in.</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Service account private key</td>
+<td>The JSON Secret Key associated with your Service Account. See <a href="https://cloud.google.com/storage/docs/authentication#generating-a-private-key">documentation</a> for details on how to set up service account keys.</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Cron Schedule</td>
+<td>Backups schedule in crontab format. For example, once daily at 2am is * 2 * * *. Also accepts a pre-defined schedule: any of @yearly, @monthly, @weekly, @daily, @hourly, or @every , where is any supported time string (e.g. 1h30m). For more information, see the cron package documentation.</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Backup timeout</td>
+<td>The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured destination</td>
+<td>Mandatory</td>
+</tr>
+</tbody></table>
+
+<h5>Azure backup fields</h5>
+
+<p><img alt="OpsManager Backups Azure view" src="images/azurebackupoptions.png" /></p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Mandatory/Optional</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Account</td>
+<td>Account name</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Azure Storage Access Key</td>
+<td>Azure specific credentials required to write to the Azure container</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Container name</td>
+<td>Name of the Azure container which will store backup files.</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Destination Directory</td>
+<td>Directory where the backup files will be stored within the Azure container.</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Blob Store Base URL</td>
+<td>URL pointing to Azure resource</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td>Cron Schedule</td>
+<td>Backups schedule in crontab format. For example, once daily at 2am is * 2 * * *. Also accepts a pre-defined schedule: any of @yearly, @monthly, @weekly, @daily, @hourly, or @every , where is any supported time string (e.g. 1h30m). For more information, see the cron package documentation.</td>
+<td>Mandatory</td>
+</tr>
+<tr>
+<td>Backup timeout</td>
+<td>The amount of time, in seconds, that the backup process will wait for the BGSAVE command to complete on your instance, before transferring the RDB file to your configured destination</td>
+<td>Mandatory</td>
+</tr>
+</tbody></table>
+
+<h6>Notes</h6>
+
+<p>For each backup destination, the field <code>Backup timeout</code> causes backups to fail after a configured timeout. Redis&rsquo; BGSAVE will continue but backups will not be uploaded to destinatons if this timeout is hit.</p>
+
+<h3><a id="azs"></a>Networks, Security, and Assigning AZs</h3>
+
+<h4><a id="network-configuration"></a>Network Configuration</h4>
+
+<p>The following ports and ranges are used in this service:</p>
+
+<ul>
+<li>Destination port 80 access to the service broker from the cloud controllers</li>
+<li>Destination port 6379 access to all dedicated nodes from the Diego Cell and Diego Brain network(s)</li>
+<li>Destination ports 32768 to 61000 on the service broker from the Diego Cell and Diego Brain network(s). This is only required for the shared service plan.</li>
+<li>Outbound access to your chosen blobstore, typically HTTP 80 or HTTPS 443</li>
+<li>Destination port <code>8301</code> access to the consul server from the consul agent deployed on all redis VMs.</li>
+</ul>
+
+<h4><a id="asg"></a> Application Security Groups</h4>
+
+<p>To allow this service to have network access you must create <a href="http://docs.pivotal.io/pivotalcf/1-7/adminguide/app-sec-groups.html">Application Security Groups (ASGs)</a>. Ensure your security group allows access to the Redis Service Broker VM and Dedicated VMs configured in your deployment. You can obtain the IP addresses for these VMs in Ops Manager under the <strong>Resource Config</strong> section for the Redis tile.</p></p>
+
+<p class="note"><strong>Note</strong>: Without ASGs, this service is unusable.</p>
+
+<h5>Application Container Network Connections</h5>
+
+<p>Application containers that use instances of the Redis service require the following outbound network connections:</p>
+
+<table><thead>
+<tr>
+<th>Destination</th>
+<th>Ports</th>
+<th>Protocol</th>
+<th>Reason</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>ASSIGNED_NETWORK</code></td>
+<td>32768-61000</td>
+<td>tcp</td>
+<td>Enable application to access shared vm service instance</td>
+</tr>
+<tr>
+<td><code>ASSIGNED_NETWORK</code></td>
+<td>6379</td>
+<td>tcp</td>
+<td>Enable application to access dedicated vm service instance</td>
+</tr>
+</tbody></table>
+
+<p>Create an ASG called <code>redis-app-containers</code> with the above configuration and bind it to the appropriate space or, to give all started apps access, bind to the <code>default-running</code> ASG set and restart your apps. Example:</p>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tcp"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;code&gt;ASSIGNED_NETWORK&lt;/code&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"ports"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6379"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<h4><a id="az-config"></a>Assigning AZs</h4>
+
+<p>Assigning multiple AZs to Redis jobs will not guarantee high availability.</p>
+
+<p>All of your Shared-VM instances will run on a single node in just one of the configured availability zones and are therefore not highly availabile.</p>
+
+<p>Each Dedicated-VM instance could be assigned to any of the configured availability zones, however each instance still operates as a single node with no clustering. This separation over availability zones provides no high availability.</p>
+
+<p><img alt="AZ Assignment Diagram" src="images/AZ-assignment.png" /></p>
+
+<h2><a id="validation"></a>Validating Installation</h2>
+
+<h3>Smoke tests</h3>
+
+<p>Smoke tests are run as part of Redis for PCF installation to validate that the install succeeded. Smoke tests are described <a href="/redis/1-6/smoke-tests.html">here</a>.</p>
+
+<h2><a id="upgrades"></a>Upgrading Redis for PCF</h2>
+
+<p>This product enables a reliable upgrade experience between versions of the product that is deployed through Ops Manager.</p>
+
+<p>The upgrade paths are detailed <a href="http://docs.pivotal.io/redis/1-6/index.html">here</a> for each released version.</p>
+
+<p>To upgrade the product:</p>
+
+<ul>
+<li>The Operator should download the latest version of the product from <a href="https://network.pivotal.io/products/p-redis">Pivotal Network</a></li>
+<li>Upload the new .pivotal file to Ops Manager</li>
+<li>Upload the stemcell associated with the update (<em>if required</em>)</li>
+<li>Update any new mandatory configuration parameters (<em>if required</em>)</li>
+<li>Press &ldquo;Apply changes&rdquo; and the rest of the process is automated</li>
+</ul>
+
+<p>During the upgrade deployment each Redis instance will experience a small period of downtime as each Redis instance is updated with the new software components. This downtime is because the Redis instances are single VMs operating in a non HA setup. The length of the downtime depends on whether there is a stemcell update to replace the operating system image or whether the existing VM can simply have the redis software updated. Stemcells updates incur additional downtime while the IaaS creates the new VM while updates without a stemcell update are faster.</p>
+
+<p>Ops Manager ensures the instances are updated with the new packages and any configuration changes are applied automatically.</p>
+
+<p>Upgrading to a newer version of the product does not cause any loss of data or configuration. This is explicitly tested for during our build and test process for a new release of the product.</p>
+
+<h3>Release policy</h3>
+
+<p>When a new version of Redis is released we aim to release a new version of the product containing this soon after.</p>
+
+<p>Where there is a new version of Redis or another dependent software component such as the stemcell released due to a critical CVE, Pivotal&rsquo;s goal is to release a new version of the product within 48 hours.</p>
+
+<h2><a id="uninstall"></a>Uninstalling Redis for PCF</h2>
+
+<p>To uninstall Redis for PCF, click on the trashcan icon in the lower right hand corner of the PCF Redis tile in the PCF Ops Manager Installation dashboard. Confirm deletion of the product and click apply changes.</p>
+
+        <div><a id='repo-link' href='http://github.com/pivotal-cf/docs-redis/tree/1.8/installing.html.md.erb'>View the source for this page in GitHub</a></div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<div id="scrim"></div>
+
+<div class="container">
+  <footer class="site-footer-links">
+    <div class="copyright">
+  <a href='http://pivotal.io/privacy-policy'>Privacy Policy</a> | 
+  <a href='http://pivotal.io/terms-of-use'>Terms of Use</a><br/>
+  <a href='/'>Pivotal Documentation</a>
+  &copy; 2017 <a href='http://pivotal.io'>Pivotal Software</a>, Inc. All Rights Reserved.
+</div>
+<div class="support">
+  Need help? <a href="http://support.pivotal.io" target="_blank">Visit Support</a>
+</div>
+
+  </footer>
+</div><!--end of container-->
+
+</body>
+</html>

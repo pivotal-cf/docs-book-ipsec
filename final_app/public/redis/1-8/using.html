@@ -1,0 +1,494 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Always force latest IE rendering engine or request Chrome Frame -->
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400italic,400,600' rel='stylesheet' type='text/css'>
+  <!-- Use title if it's in the page YAML frontmatter -->
+  <title>
+      Using Redis for PCF |
+    Pivotal Docs
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/stylesheets/all.css" rel="stylesheet" media="screen, print" />
+  <link href="/stylesheets/print.css" rel="stylesheet" media="print" />
+  <link href='/images/favicon.ico' rel='shortcut icon'>
+
+  <script src="/javascripts/all.js"></script>
+  
+<script type="text/javascript">
+  if (window.location.host === 'docs.pivotal.io') {
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-39702075-1']);
+    _gaq.push(['_setDomainName', 'pivotal.io']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript';
+      ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  }
+</script>
+
+<script type="text/javascript">
+  var blackList = ['acceptance'];
+
+  blackList.forEach(function(blackListedEnv) {
+    if (document.URL.indexOf(blackListedEnv) > -1 && blackListedEnv != "") {
+      $('head').append('<meta name="hashtag" content="PivotalMoment">');
+    }
+  });
+</script>
+
+<!-- CrazyEgg Tracking Script -->
+  <script type="text/javascript">
+  setTimeout(function(){var a=document.createElement("script");
+  var b=document.getElementsByTagName("script")[0];
+  a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0055/2990.js?"+Math.floor(new Date().getTime()/3600000);
+  a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+  </script>
+
+<!-- Munchkin Marketo Script -->
+<script type="text/javascript">
+  (function() {
+    var didInit = false;
+
+    function initMunchkin() {
+      if (didInit === false) {
+        didInit = true;
+        Munchkin.init('625-IUJ-009');
+      }
+    }
+
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+    s.onreadystatechange = function() {
+      if (this.readyState == 'complete' || this.readyState == 'loaded') {
+        initMunchkin();
+      }
+    };
+    s.onload = initMunchkin;
+    document.getElementsByTagName('head')[0].appendChild(s);
+  })();
+</script>
+
+</head>
+
+<body class="redis redis_1-8 redis_1-8_using has-subnav">
+
+<div class="viewport">
+  <div class='wrap'>
+    <script type="text/javascript">
+      document.domain = "pivotal.io";
+    </script>
+
+      <header class="global-header header header-layout js-bar-links">
+    <a class="pivotal-logo" href="/">
+    </a>
+    <a href="/" class="global-header-title">
+      <span class="title-deemph">Pivotal</span> Documentation
+    </a>
+    <div class="btn-menu" data-behavior="MenuMobile"></div>
+    <div class="header-links">
+      <div class="header-item">
+        <a href="https://network.pivotal.io/">Downloads</a>
+      </div>
+      <div class="header-item">
+        <a href="http://support.pivotal.io" target="_blank">Support</a>
+      </div>
+
+      <div class="header-item embedded-searchbar">
+          <form method="get" action="/search">
+            <input name="q" placeholder="Search Redis 1.8" class="search-box" />
+            <input type="hidden" name="product_name" value="Pivotal Redis" />
+              <input type="hidden" name="product_version" value="1.8"/>
+          </form>
+      </div>
+      
+    </div>
+  </header>
+
+
+
+    <div class="container">
+
+      <!--googleoff: index-->
+      <div id="sub-nav" class="js-sidenav nav-container" role="navigation">
+  <a class="sidenav-title" data-behavior="SubMenuMobile">
+    Doc Index
+  </a>
+  <div class="nav-content">
+    <ul>
+
+
+      <li class="has_submenu expanded">
+        <a href="/redis/1-8/index.html">About Redis for PCF</a>
+        <ul>
+          <li>
+            <a href="/redis/1-8/minor-overview.html">Overview of Redis for PCF v.1.7</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/release.html">Release Notes</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#config">How Redis for PCF Configures Redis</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#plans">Service Plans</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#architecture">Architecture</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#lifecycle">Lifecycle</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/recommended.html">Recommended Usage and Limitations</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/security.html">Security</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="has_submenu expanded">
+        <a href="/redis/1-8/maintain.html">Operator Guide</a>
+        <ul>
+          <li>
+            <a href="/redis/1-8/installing.html">Installing Redis</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#service-plans">Configuring Service Plans</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#syslog">Configuring Syslog Output</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#backup">Configuring Automated Backups</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#azs">Networks, Security, and Assigning AZs</a>
+          </li>          
+          <li>
+            <a href="/redis/1-8/installing.html#validation">Validating Install with Smoke Tests</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/manual-br.html#create">Creating Manual Backups</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/manual-br.html#restore">Restoring from Backups</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/monitoring.html">Monitoring and Metrics</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#upgrades">Upgrading Redis for PCF</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/installing.html#uninstall">Uninstalling Redis for PCF</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/troubleshooting.html">Troubleshooting</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="has_submenu expanded">
+        <a href="/redis/1-8/appdevs.html">Application Developer Guide</a>
+        <ul>
+          <li>
+            <a href="/redis/1-8/appdevs.html#getting-started">Getting Started</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/architecture.html#service-plans">Service Plans</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/using.html#create">Creating a Redis Service Instance</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/using.html#bind">Binding an App to a Service Instance</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/using.html#delete">Deleting a Service Instance</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/recommended.html">Recommended Usage and Limitations</a>
+          </li>
+          <li>
+            <a href="/redis/1-8/redisconf.html">Sample Redis Configuration</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div><!--end of sub-nav-->
+
+
+
+
+
+      <!--googleon: index-->
+
+      <main class="content content-layout" id="js-content" role="main">
+        <a id="top"></a>
+          <div class="local-header title-container">
+    <div class="local-header version-info">
+      LATEST VERSION: 1.8 - <a href="">CHANGELOG</a>
+    </div>
+    <div class="local-header local-title clearfix">
+      <img src="/images/cloud_rings.png">
+      <span class="local-header-title">Pivotal Redis
+      </span>
+      <span class="local-header local-version header-dropdown">
+        <a class="local-header header-dropdown-link">v1.8</a>
+        <span class="local-header header-dropdown-content">
+          <ul>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-7/using.html">v1.7</a>
+                </li>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-6/using.html">v1.6</a>
+                </li>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-5/using.html">v1.5</a>
+                </li>
+                <li>
+                    <a href="http://docs.pivotal.io/redis/1-4/using.html">v1.4</a>
+                </li>
+          </ul>
+        </span>
+      </span>
+
+      <!-- search was here -->
+    </div>
+    <div class="local-header local-header-links">
+    </div>
+  </div>
+
+          <h1 class="title-container" >
+    Using Redis for PCF
+  </h1>
+
+          <div id="js-quick-links" >
+            <div class="quick-links"><ul>
+<li>
+<a href="#create">Creating a Redis Service Instance</a><ul><li><a href="#plans">Available Plans</a></li></ul>
+</li>
+<li><a href="#bind">Binding an Application to the Redis Service</a></li>
+<li><a href="#delete">Deleting a Redis Instance</a></li>
+</ul></div>
+          </div>
+        <div class="to-top" id="js-to-top">
+          <a href="#top" title="back to top"></a>
+        </div>
+        <p>Redis for PCF can be used both via Pivotal Apps Manager and the CLI, both methods are outlined below. An example application has also been created to help application developers get started with Redis for PCF, and can be <a href="https://github.com/pivotal-cf/cf-redis-example-app/archive/master.zip">downloaded here</a>.</p>
+
+<p>See <a href="/redis/1-8/recommended.html">Redis for PCF Recommended Usage</a> for recommendations regarding Redis for PCF service plans, and memory allocation.</p>
+
+<h2><a id="create"></a>Creating a Redis Service Instance</h2>
+
+<p>The following procedure describes how to create a Redis service instance in the Pivotal Cloud Foundry Elastic Runtime environment.</p>
+
+<h3><a id="plans"></a>Available Plans</h3>
+
+<p>Before creating a Redis instance, it is worth being aware of the three available plans:</p>
+
+<table border="1" class="nice">
+<tr>
+<th><strong>Plan Name</strong></th>
+<th><strong>Suitable for</strong></th>
+<th><strong>Tenancy Model per Instance</strong></th>
+<th><strong>Highly Available</strong></th>
+<th><strong>Backup Functionality</strong></th>
+</tr>
+
+<tr>
+<td><b>On-Demand</b></td>
+<td>Cache uses (small, medium and large)</td>
+<td>Dedicated VM</td>
+<td>No</td>
+<td>No</td>
+</tr>
+
+
+<tr>
+<td><b>Shared-VM</b></td>
+<td>Lighter workloads that do not require dedicated resources</td>
+<td>Shared VM</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+
+<tr>
+<td><b>Dedicated-VM</b></td>
+<td>Increased workloads that require dedicated resources</td>
+<td>Dedicated VM</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+
+</table>
+
+<h3>Using Pivotal Apps Manager</h3>
+
+<ol>
+<li>From within Pivotal Apps Manager, select Marketplace from the left navigation menu under Spaces. The Services Marketplace displays.</li>
+<li>Select <strong>Redis</strong> from the displayed tiles and click to view the <a href="/redis/1-8/service-plans.html">available plans</a>.</li>
+<li>Click on the appropriate <strong>Select this plan</strong> button to select the required <strong>Redis Service Plan</strong>.</li>
+<li>In the Instance Name field, enter a name that will identify this specific Redis service instance.</li>
+<li>From the Add to Space drop-down list, select the space where you or other users will deploy the applications that will bind to the service.</li>
+<li>Click the <strong>Add</strong> button.</li>
+</ol>
+
+<h3>Using the CLI</h3>
+
+<ol>
+<li><p>Run <code>cf marketplace</code> to view the available service plans:</p>
+
+<pre class=terminal>
+$ cf marketplace
+
+Getting services from marketplace in org system / space apps-manager as admin...
+OK
+
+service          plans                     description
+p-redis          shared-vm, dedicated-vm   Redis service to provide a key-value store
+
+TIP:  Use 'cf marketplace -s SERVICE' to view descriptions of individual plans of a given service.
+</pre></li>
+<li><p>Run <code>cf create service</code> to create the service plan. Include the service plan name as listed in the Services Markeplace and a descriptive name you want to use for the service:</p>
+
+<pre class=terminal>
+$ cf create-service p-redis SERVICE-PLAN-NAME SERVICE-INSTANCE-NAME
+</pre>
+
+<p><br />For example:</p>
+
+<pre class=terminal>
+$ cf create-service p-redis shared-vm redis
+</pre></li>
+</ol>
+
+<h2><a id="bind"></a>Binding an Application to the Redis Service</h2>
+
+<p>The following procedures describe how to bind a Redis service instance to your Pivotal Cloud Foundry application. This can be done via the Pivotal Apps Manager or Using the Pivotal Cloud Foundry CLI.</p>
+
+<h3>Using Pivotal Apps Manager</h3>
+
+<ol>
+<li>Select the application that you wish to bind to the service. A page displays showing the already bound services and instances for this application.</li>
+<li>Click Bind. A list of available services displays.</li>
+<li>Click the Bind button for the Redis service you want to bind to this application.</li>
+<li><p>Start or restage your app from the command line:</p>
+
+<pre class=terminal>
+$ cf restage APPLICATION-NAME
+</pre></li>
+</ol>
+
+<h3>Using the CLI</h3>
+
+<ol>
+<li><p>Run <code>cf services</code> to view running service instances.</p>
+
+<pre class=terminal>
+$ cf services
+
+Getting services in org system / space apps-manager as admin...
+OK
+
+name                service         plan        bound apps    last operation
+my-redis-instance   p-redis         shared-vm                 create succeeded
+</pre></li>
+<li><p>Run <code>cf bind-service</code> to bind the application to the service instance.</p>
+
+<pre class=terminal>
+$ cf bind-service APPLICATION-NAME SERVICE-INSTANCE-NAME
+</pre>
+
+<p>For example:</p>
+
+<pre class=terminal>
+$ cf bind-service my-application redis
+</pre></li>
+<li><p>Run <code>cf restage</code> to restage your application.</p>
+
+<pre class=terminal>
+$ cf restage APPLICATION-NAME
+</pre></li>
+</ol>
+
+<h2><a id="delete"></a>Deleting a Redis Instance</h2>
+
+<p>When you delete a Redis service instance, all applications that are bound to that service are automatically unbound and any data in the service instance is cleared.</p>
+
+<h3>Using Pivotal Apps Manager</h3>
+
+<ol>
+<li>Locate the row under Services that contains the service instance you want to delete and click <strong>Delete</strong>.</li>
+<li><p>If you had applications that were bound to this service, you may need to restage or re-push your application for the application changes to take effect.</p>
+
+<pre class=terminal>
+$ cf restage APPLICATION-NAME
+</pre></li>
+</ol>
+
+<h3>Using the CLI</h3>
+
+<ol>
+<li><p>Run <code>cf delete-service</code> and include the service instance name that you would like to delete. Enter <code>y</code> when prompted to confirm.</p>
+
+<pre class=terminal>
+$ cf delete-service SERVICE-INSTANCE-NAME
+</pre>
+
+<p><br />For example:</p>
+
+<pre class=terminal>
+$ cf delete-service my-redis-instance
+
+Really delete the service my-redis-instance?> y
+Deleting service my-redis-instance in org system / space apps-manager as admin...
+OK
+</pre></li>
+<li><p>If you had applications that were bound to this service, you may need to restage or re-push your application for the application changes to take effect.</p>
+
+<pre class=terminal>
+$ cf restage APPLICATION-NAME
+</pre></li>
+</ol>
+
+        <div><a id='repo-link' href='http://github.com/pivotal-cf/docs-redis/tree/1.8/using.html.md.erb'>View the source for this page in GitHub</a></div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<div id="scrim"></div>
+
+<div class="container">
+  <footer class="site-footer-links">
+    <div class="copyright">
+  <a href='http://pivotal.io/privacy-policy'>Privacy Policy</a> | 
+  <a href='http://pivotal.io/terms-of-use'>Terms of Use</a><br/>
+  <a href='/'>Pivotal Documentation</a>
+  &copy; 2017 <a href='http://pivotal.io'>Pivotal Software</a>, Inc. All Rights Reserved.
+</div>
+<div class="support">
+  Need help? <a href="http://support.pivotal.io" target="_blank">Visit Support</a>
+</div>
+
+  </footer>
+</div><!--end of container-->
+
+</body>
+</html>
