@@ -1,6 +1,6 @@
-#  Redis for PCF Documentation Book
+#  Add-Ons for PCF Documentation Book
 
-This project can create and publish the documentation for Redis for PCF as a web application.
+This project can create and publish the documentation for Add-Ons for PCF as a web application.
 
 In this topic:
 
@@ -21,7 +21,7 @@ Bookbinder uses this centralized layout repository by default, but files in the 
 
 ## What's in this Repo
 
-Here you'll find the configuration and templates for the Redis for PCF documentation set published to [docs.pivotal.io/redis/](http://docs.pivotal.io/redis/).
+Here you'll find the configuration and templates for the Add-Ons for PCF documentation set published to [docs.pivotal.io/](http://docs.pivotal.io/).
 
 This repository *does not* contain the actual documentation content. 
 Actual content is contained in the topic repositories listed in the `config.yml` file.
