@@ -1,5 +1,5 @@
 ---
-book_repo: pivotal-cf/docs-book-redis
+book_repo: pivotal-cf/docs-book-ipsec
 layout_repo: pivotal-cf/docs-layout-repo
 
 feedback_enabled: true
@@ -12,14 +12,6 @@ public_host: docs.pivotal.io
 elastic_search: true
 
 sections:
-- repository:
-    name: pivotal-cf/docs-addon-antivirus
-  directory: addon-antivirus
-  subnav_template: addon_antivirus.erb
-- repository:
-    name: pivotal-cf/docs-addon-fim
-  directory: addon-fim
-  subnav_template: addon_fim.erb
 - repository:
     name: pivotal-cf/docs-addon-ipsec
     ref: '1.6'
