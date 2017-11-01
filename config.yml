@@ -12,7 +12,7 @@ public_host: docs.pivotal.io
 elastic_search: true
 
 sections:
-sections:
+
 - repository:
     name: pivotal-cf/docs-addon-ipsec
     ref: '1.8'
@@ -36,6 +36,7 @@ sections:
         display_name: v1.6
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-5
         display_name: v1.5
+
 - repository:
     name: pivotal-cf/docs-addon-ipsec
     ref: '1.7'
@@ -43,7 +44,7 @@ sections:
   subnav_template: addon_ipsec_1-7.erb
   product_info:
     use_local_header: true
-    latest_stable_version: 1.7
+    latest_stable_version: 1.8
     local_header_img: /images/cloud_rings.png
     local_header_title: IPsec Add-on for PCF
     search_placeholder: Search IPsec Add-on 1.7
@@ -59,6 +60,7 @@ sections:
         display_name: v1.6
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-5
         display_name: v1.5
+
 - repository:
     name: pivotal-cf/docs-addon-ipsec
     ref: '1.6'
@@ -66,7 +68,7 @@ sections:
   subnav_template: addon_ipsec.erb
   product_info:
     use_local_header: true
-    latest_stable_version: 1.6
+    latest_stable_version: 1.8
     local_header_img: /images/cloud_rings.png
     local_header_title: IPsec Add-on for PCF
     search_placeholder: Search IPsec Add-on 1.6
@@ -82,6 +84,7 @@ sections:
         display_name: v1.6
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-5
         display_name: v1.5
+
 - repository:
     name: pivotal-cf/docs-addon-ipsec
     ref: '1.5'
@@ -89,7 +92,7 @@ sections:
   subnav_template: addon_ipsec_1-5.erb
   product_info:
     use_local_header: true
-    latest_stable_version: 1.6
+    latest_stable_version: 1.8
     local_header_img: /images/cloud_rings.png
     local_header_title: IPsec Add-on for PCF
     search_placeholder: Search IPsec Add-on 1.5
