@@ -31,9 +31,9 @@ sections:
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-8
         display_name: v1.8
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-7
-        display_name: v1.7
-      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
         display_name: v1.6
+      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
+        display_name: v1.8
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-5
         display_name: v1.5
 
@@ -46,8 +46,8 @@ sections:
     use_local_header: true
     latest_stable_version: 1.8
     local_header_img: /images/cloud_rings.png
-    local_header_title: IPsec Add-on for PCF
-    search_placeholder: Search IPsec Add-on 1.7
+    local_header_title: PCF IPsec Add-On
+    search_placeholder: Search IPsec Add-On 1.7
     url_prefix: addon-ipsec/1-7
     local_product_version: 1.7
     local_header_links: []
@@ -55,9 +55,9 @@ sections:
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-8
         display_name: v1.8
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-7
-        display_name: v1.7
-      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
         display_name: v1.6
+      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
+        display_name: v1.8
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-5
         display_name: v1.5
 
@@ -65,13 +65,13 @@ sections:
     name: pivotal-cf/docs-addon-ipsec
     ref: '1.6'
   directory: addon-ipsec/1-6
-  subnav_template: addon_ipsec.erb
+  subnav_template: addon_ipsec_1-6.erb
   product_info:
     use_local_header: true
     latest_stable_version: 1.8
     local_header_img: /images/cloud_rings.png
-    local_header_title: IPsec Add-on for PCF
-    search_placeholder: Search IPsec Add-on 1.6
+    local_header_title: PCF IPsec Add-On
+    search_placeholder: Search IPsec Add-On 1.6
     url_prefix: addon-ipsec/1-6
     local_product_version: 1.6
     local_header_links: []
@@ -79,9 +79,9 @@ sections:
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-8
         display_name: v1.8
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-7
-        display_name: v1.7
-      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
         display_name: v1.6
+      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
+        display_name: v1.8
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-5
         display_name: v1.5
 
@@ -94,8 +94,8 @@ sections:
     use_local_header: true
     latest_stable_version: 1.8
     local_header_img: /images/cloud_rings.png
-    local_header_title: IPsec Add-on for PCF
-    search_placeholder: Search IPsec Add-on 1.5
+    local_header_title: PCF IPsec Add-On
+    search_placeholder: Search IPsec Add-On 1.5
     url_prefix: addon-ipsec/1-5
     local_product_version: 1.5
     local_header_links: []
@@ -103,9 +103,8 @@ sections:
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-8
         display_name: v1.8
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-7
-        display_name: v1.7
-      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
         display_name: v1.6
+      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
+        display_name: v1.8
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-5
         display_name: v1.5
-        
