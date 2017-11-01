@@ -78,9 +78,9 @@ sections:
         display_name: v1.8
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-7
         display_name: v1.7
-       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
+      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-6
         display_name: v1.6
-     - url_prefix: http://docs.pivotal.io/addon-ipsec/1-5
+      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-5
         display_name: v1.5
 - repository:
     name: pivotal-cf/docs-addon-ipsec
