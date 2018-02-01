@@ -33,6 +33,7 @@ sections:
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-7
         display_name: v1.7
       - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.6.pdf">v1.6</a>
+      - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.5.pdf">v1.5</a>
 
 - repository:
     name: pivotal-cf/docs-addon-ipsec
@@ -54,4 +55,4 @@ sections:
       - url_prefix: http://docs.pivotal.io/addon-ipsec/1-7
         display_name: v1.7
       - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.6.pdf">v1.6</a>
-
+      - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.5.pdf">v1.5</a>
