@@ -15,7 +15,7 @@ sections:
 
 - repository:
     name: pivotal-cf/docs-addon-ipsec
-    ref: '1.8'
+    ref: '1.9'
   directory: addon-ipsec/1-9
   subnav_template: addon_ipsec_1-9.erb
   product_info:
