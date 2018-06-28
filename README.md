@@ -2,6 +2,8 @@
 
 This project can create and publish the documentation for Add-Ons for PCF as a web application.
 
+**Note:** For specific information about IPsec book and branches, see [IPsec content repo](https://github.com/pivotal-cf/docs-addon-ipsec/blob/master/README.md).
+
 In this topic:
 
 * [What's in this Repo](#whats-in-this-repo)
