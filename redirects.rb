@@ -5,7 +5,7 @@ r301 %r{.*}, 'https://docs.pivotal.io$&', :if => Proc.new { |rack_env|
 
 r301 %r{/addon-ipsec/(?![\d-]+)(.*)}, "/addon-ipsec/1-9/$1"
 
-r301 %r{/addon-ipsec/1-8-[\d]+/(.*)}, "/addon-ipsec/1-8/$1"
+r301 %r{/addon-ipsec/1-8/(.*)}, 'http://docs.pivotal.io/archives/addon-ipsec-1.8.pdf'
 
 r301 %r{/addon-ipsec/1-7/(.*)}, 'http://docs.pivotal.io/archives/addon-ipsec-1.7.pdf'
 
