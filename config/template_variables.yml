@@ -5,6 +5,8 @@ template_variables:
   title: <span class="title-deemph">Pivotal</span> Documentation
   title_image: images/icon-p-green.jpg
   hero_text: "Detailed documentation to help you install, understand, and succeed with Pivotal's enterprise-grade software."
+  ops_manager_full: Pivotal Operations Manager
+  ops_manager: Ops Manager
   product_full: Elastic Runtime
   product_short: Elastic Runtime
   product_name: PCF
