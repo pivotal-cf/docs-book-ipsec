@@ -5,7 +5,7 @@ template_variables:
   title: <span class="title-deemph">Pivotal</span> Documentation
   title_image: images/icon-p-green.jpg
   hero_text: "Detailed documentation to help you install, understand, and succeed with Pivotal's enterprise-grade software."
-  product_full: Pivotal IPsec
+  product_full: IPsec
   product_short: IPsec
   product_abbr: IPsec
   product_name: IPsec #Do not use in the future.
@@ -18,14 +18,14 @@ template_variables:
   path_to_partials: /ipsec/partials
 
 # Product variables
-  ops_manager_full: Pivotal Operations Manager
+  ops_manager_full: Operations Manager
   ops_manager: Ops Manager
-  platform_name: Pivotal Platform
+  platform_name: VMware Tanzu
   platform_old: Pivotal Cloud Foundry
-  platform_code: PCF
+  platform_code: VMware Tanzu
   product_name_lc: pcf
-  app_runtime_full: Pivotal Application Service
-  app_runtime: Pivotal Application Service
+  app_runtime_full: VMware Tanzu Application Service for VMs
+  app_runtime: VMware Tanzu Application Service for VMs
   app_runtime_abbr: PAS
   k8s_runtime_full: Enterprise Pivotal Container Service
   k8s_runtime_abbr: PKS
