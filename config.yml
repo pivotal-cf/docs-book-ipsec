@@ -29,8 +29,8 @@ sections:
     latest_stable_version: 1.9
     changelog_href: https://docs.pivotal.io/addon-ipsec/1-9/release-notes.html
     local_header_img: /images/cloud_rings.png
-    local_header_title: Pivotal IPsec
-    search_placeholder: Search Pivotal IPsec 1.9
+    local_header_title: IPsec
+    search_placeholder: Search IPsec 1.9
     url_prefix: addon-ipsec/1-9
     local_product_version: 1.9
     local_header_links: []
