@@ -18,3 +18,26 @@ sections:
     ref: master
   directory: ipsec/partials
   no_docs: true
+
+- repository:
+    name: pivotal-cf/docs-addon-ipsec
+    ref: 'master'
+  directory: addon-ipsec/1-n
+  subnav_template: addon_ipsec_1-n.erb
+  product_info:
+    use_local_header: true
+    latest_stable_version: 1.9
+    changelog_href: https://docs.pivotal.io/addon-ipsec/1-n/release-notes.html
+    local_header_img: /images/cloud_rings.png
+    local_header_title: IPsec
+    search_placeholder: Search IPsec 1.10
+    url_prefix: addon-ipsec/1-n
+    local_product_version: 1.10
+    local_header_links: []
+    local_header_version_list:
+      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-9
+        display_name: 1.9
+      - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.8.pdf">1.8 (PDF)</a>
+      - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.7.pdf">1.7 (PDF)</a>
+      - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.6.pdf">1.6 (PDF)</a>
+      - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.5.pdf">1.5 (PDF)</a>
