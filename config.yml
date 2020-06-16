@@ -35,8 +35,6 @@ sections:
     local_product_version: 1.9
     local_header_links: []
     local_header_version_list:
-      - url_prefix: http://docs.pivotal.io/addon-ipsec/1-9
-        display_name: 1.9
       - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.8.pdf">1.8 (PDF)</a>
       - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.7.pdf">1.7 (PDF)</a>
       - <a href="http://docs.pivotal.io/archives/addon-ipsec-1.6.pdf">1.6 (PDF)</a>
