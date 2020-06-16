@@ -1,8 +1,8 @@
-#  Add-Ons for PCF Documentation Book
+#  IPsec Documentation Book
 
-This project can create and publish the documentation for Add-Ons for PCF as a web application.
+This project can create and publish the documentation for IPsec as a web application.
 
-**Note:** For specific information about IPsec book and branches, see the [IPsec content repo readme](https://github.com/pivotal-cf/docs-addon-ipsec/blob/master/README.md).
+The content repo associated with this book is [https://github.com/pivotal-cf/docs-addon-ipsec/](https://github.com/pivotal-cf/docs-addon-ipsec/).
 
 In this topic:
 
@@ -18,17 +18,29 @@ In this topic:
 **Breaking Change**: This book now uses a centralized layout repository, [docs-layout-repo](https://github.com/pivotal-cf/docs-layout-repo).  
 You must clone this repository to run `bookbinder bind local`.
 
-The centralized layout repository is specified as the value of the `layout_repo` key in the `config.yml` file. 
+The centralized layout repository is specified as the value of the `layout_repo` key in the `config.yml` file.
 Bookbinder uses this centralized layout repository by default, but files in the book's `master_middleman/source` directory override files in the centralized layout repository if they have the same name.
 
 ## What's in this Repo
 
 Here you'll find the configuration and templates for the Add-Ons for PCF documentation set published to [docs.pivotal.io/](http://docs.pivotal.io/).
 
-This repository *does not* contain the actual documentation content. 
+This repository *does not* contain the actual documentation content.
 Actual content is contained in the topic repositories listed in the `config.yml` file.
 
 The `master_middleman` folder contains the templates used for publishing.
+
+The redirect for the unversioned route is in `docs-book-pcfservices`. We update this redirect for each minor release so that the a URL without a version number redirects to latest release.
+For example: `r302 %r{/addon-ipsec/(?![\d-]+)(.*)}, "/addon-ipsec/1-9/$1"`
+
+All other redirects are in the local `redirects.rb` file for all the versions that the redirects apply to.
+
+Each version of IPsec has its own book branch:
+
+| Branch name | Use for… |
+|-------------| -------|
+| master      | "edge" branch for v1.x, publishes to https://docs-pcf-staging.cfapps.io/addon-ipsec/1-n/ |
+| 1.9         | v1.9.x |
 
 ## The Docs Toolchain
 
@@ -47,10 +59,10 @@ So, for example, the docs for the Cloud Foundry command-line tool (cf CLI) exist
 The docs team prefers to receive documentation contributions as pull requests rather than having engineering teams push directly to the docs repos.
 This gives us a chance to review the changes for consistency and understand the new content.
 
-If you are planning to initiate a large documentation effort, please coordinate with the docs team in advance to make sure we're not going to step on each other. 
+If you are planning to initiate a large documentation effort, please coordinate with the docs team in advance to make sure we're not going to step on each other.
 You can reach the docs team by email at [cf-docs@pivotal.io](mailto:cf-docs@pivotal.io).
 
-If you are trying to figure out where a particular bit of information should live, please reach out and ask. 
+If you are trying to figure out where a particular bit of information should live, please reach out and ask.
 We're happy to help you ensure information goes to the right place.
 
 Note that content often lives in more than one context.
@@ -65,8 +77,8 @@ This is a Bookbinder project. See [its README](https://github.com/pivotal-cf/boo
 
 We deploy this documentation as an app using Concourse pipelines, at https://p-concourse.wings.cf-app.com/teams/system-team-docs-docs-1-88aa/pipelines/cf-current?groups=pcfservices
 
-Credential for our pipeline are stored in LastPass. 
-Tarballs of the builds are stored on Amazon S3. 
+Credential for our pipeline are stored in LastPass.
+Tarballs of the builds are stored on Amazon S3.
 Use the creds stored in LastPass to log in.
 
 The CI status can be monitored via the [Checkman](https://github.com/cppforlife/checkman) application (Mac only).
@@ -84,9 +96,9 @@ Staging and Production are both on run.pivotal.io:
 
 See the config.yml for details.
 
-## Notes on the config.yml 
+## Notes on the config.yml
 
-Template variables for the PCF docs are stored in a separate YML file, `template_variables.yml`, stored in the config folder. 
+Template variables for the PCF docs are stored in a separate YML file, `template_variables.yml`, stored in the config folder.
 
 The "sections" section of the `config.yml` file is organized as follows:
 
@@ -123,4 +135,3 @@ or on the branch corresponding to its version number.
   ```
 
   `ref: '225'` refers to the 225 branch of the docs-cloudfoundry-concepts repo. Cloud Foundry v225 is associated with the PCF v1.6 release.
-
