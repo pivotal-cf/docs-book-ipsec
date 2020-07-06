@@ -6,7 +6,7 @@ template_variables:
   title_image: images/icon-p-green.jpg
   hero_text: "Detailed documentation to help you install, understand, and succeed with VMware Tanzu's enterprise-grade software."
 
-  tile_name: IPsec
+  tile_name: IPsec for VMware Tanzu
   product_url: https://network.pivotal.io/products/pivotal-cf
   product_link: <div class="header-item"><a href="https://network.pivotal.io/products/pivotal-cf">Back to Product Page</a></div>
 
@@ -26,7 +26,7 @@ template_variables:
   global_header_product_link_text: Downloads
 
 # Product variables
-  product_full: IPsec
+  product_full: IPsec for VMware Tanzu
   product_short: IPsec
   product_abbr: IPsec
   product_old: Pivotal IPsec
